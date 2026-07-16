@@ -16,11 +16,11 @@ async def main():
     while True:
         scrapped_posts, html = await fetch_posts(page)
 
-        authors_links = [
+        authors_links = {
             post.author_link
             for post in scrapped_posts
             if post.author_name not in map(str, authors)
-        ]
+        }
 
         tasks = [fetch_author(link) for link in authors_links]
         authors += filter(None, await asyncio.gather(*tasks))

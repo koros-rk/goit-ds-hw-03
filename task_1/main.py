@@ -65,7 +65,7 @@ class CatsRepository:
         if entity := self.get_one(name):
             self._collection.update_one(
                 {"name": entity.name},
-                {"$set": {"features": [new_feature, *entity.features]}},
+                {"$push": {"features": new_feature}},
             )
 
 
